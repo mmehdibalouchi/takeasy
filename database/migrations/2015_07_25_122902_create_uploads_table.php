@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateUploadsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('uploads', function (Blueprint $table) {
+            $table->increments('id');
+            $table->morphs('uploadable');
+            $table->enum('type', ['AVATAR', 'QUESTION_FILE', 'ANSWER_FILE', 'TAG_PIC']);
+            $table->string('filename');
+            $table->string('mime');
+            $table->string('original_filename');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('uploads');
+    }
+    
+}
